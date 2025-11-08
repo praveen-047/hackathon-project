@@ -1,0 +1,292 @@
+.admin-container {
+  width:100vw;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.admin-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: #ccc;
+  position: relative;
+}
+
+.tab:hover {
+  color: #00bcd4;
+}
+
+.tab.active {
+  color: #00bcd4;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #00bcd4;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+
+
+
+/* job post */
+.job-post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: white;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+button[type='submit'] {
+  background-color: #00bcd4;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button[type='submit']:hover {
+  background-color: #00acc1;
+}
+
+
+
+/* blog post */
+.blog-post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+button[type='submit'] {
+  background-color: #00bcd4;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button[type='submit']:hover {
+  background-color: #00acc1;
+}
+
+
+
+
+
+
+
+
+/* Glass-style container */
+.glass-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 30px 40px;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Section heading */
+.section-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Form layout */
+.styled-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+label {
+  color: #e0e0e0;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* Inputs, selects, and textarea */
+input,
+select,
+textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #cccccc;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.01);
+}
+
+/* Primary button */
+.primary-btn {
+  background: linear-gradient(90deg, #00bcd4, #0097a7);
+  color: #fff;
+  padding: 12px 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  background: linear-gradient(90deg, #26c6da, #00acc1);
+  transform: translateY(-2px);
+}
+
+/* Subtle fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* recived applications */
+.received-applications-container {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 188, 212, 0.3);
+  border-radius: 14px;
+  padding: 24px;
+  color: #e0f7fa;
+  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.15);
+  margin-top: 20px;
+}
+
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.applications-table th,
+.applications-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: left;
+}
+
+.applications-table th {
+  color: #00bcd4;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.view-resume {
+  color: #00e5ff;
+  background: rgba(0, 188, 212, 0.15);
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s ease;
+  border: 1px solid rgba(0, 188, 212, 0.3);
+}
+
+.view-resume:hover {
+  background: rgba(0, 188, 212, 0.25);
+  transform: scale(1.05);
+}

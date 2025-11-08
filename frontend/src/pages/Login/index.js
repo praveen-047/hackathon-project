@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../api";
 import GlassMessage from "../../components/GlassMessage";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import "./index.css";
 
 export default function Login() {
+  const [currentUser, setCurrentUser] = useState("candidate");
 
   const [message, setMessage] = useState("");
 
@@ -15,24 +17,31 @@ export default function Login() {
   const navigate = useNavigate();
 
   const loginSuccess = (token) => {
-  setMessage("Login successful! 🎉"); // show message
-  Cookies.set("jwt_token", token, { expires: 30 });
+    setMessage("Login successful! 🎉"); // show message
+    Cookies.set("jwt_token", token, { expires: 30 });
 
-  // wait 3 seconds before redirect
-  setTimeout(() => {
-    navigate("/");
-  }, 3000);
-};
+    // wait 3 seconds before redirect
+    const decoded = jwtDecode(token);
+    const userRole = decoded.role;
+
+    setTimeout(() => {
+      if (userRole === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/candidate");
+      }
+    }, 3000);
+  };
 
   const loginFailure = (error) => {
     setError(error);
-    setMessage("Registration failed ❌");
+    setMessage("Login failed ❌");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await login(email, password);
+      const res = await login(email, password,currentUser);
       const data = await res.json();
       if (res.ok) {
         loginSuccess(data.token);
@@ -55,6 +64,22 @@ export default function Login() {
       </div>
       <div className="login-card-container">
         <h1>Login</h1>
+
+        <div className="role-toggle">
+          <p
+            className={currentUser === "candidate" ? "active-role" : ""}
+            onClick={() => setCurrentUser("candidate")}
+          >
+            Candidate
+          </p>
+          <p
+            className={currentUser === "admin" ? "active-role" : ""}
+            onClick={() => setCurrentUser("admin")}
+          >
+            Admin
+          </p>
+        </div>
+
         <form className="login-card-container-form" onSubmit={handleSubmit}>
           <div>
             <label className="label" htmlFor="email">
@@ -67,6 +92,24 @@ export default function Login() {
               placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
             />
+          </div>
+
+          <div className="role-toggle">
+            <select
+              className="role-select"
+              value={currentUser}
+              onChange={(e) => setCurrentUser(e.target.value)}
+            >
+              <option value="candidate">Candidate</option>
+              <option value="admin">Admin</option>
+            </select>
+
+            {/* underline that moves dynamically */}
+            <div
+              className={`underline ${
+                currentUser === "admin" ? "move-right" : "move-left"
+              }`}
+            ></div>
           </div>
 
           <div>
