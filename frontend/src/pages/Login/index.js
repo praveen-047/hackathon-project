@@ -94,7 +94,7 @@ export default function Login() {
             />
           </div>
 
-          <div className="role-toggle">
+          {/* <div className="role-toggle">
             <select
               className="role-select"
               value={currentUser}
@@ -104,13 +104,13 @@ export default function Login() {
               <option value="admin">Admin</option>
             </select>
 
-            {/* underline that moves dynamically */}
+            
             <div
               className={`underline ${
                 currentUser === "admin" ? "move-right" : "move-left"
               }`}
             ></div>
-          </div>
+          </div> */}
 
           <div>
             <label className="label" htmlFor="password">

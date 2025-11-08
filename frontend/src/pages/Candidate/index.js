@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
 
 export default function Candidate() {
@@ -102,12 +102,22 @@ export default function Candidate() {
     }
   };
 
+
+  const navigate = useNavigate();
+  const handleLogout =()=>{
+    Cookies.remove("jwt_token")
+    navigate('/login')
+  }
+
   return (
     <>
     <div className="candidate-container">
       <div className="candidate-container-header">
         <p>Current Job Openings</p>
         <p>username profile</p>
+        <div>
+        <button type="button" onClick={handleLogout}>Logout</button>
+      </div>
       </div>
 
       {loading ? (

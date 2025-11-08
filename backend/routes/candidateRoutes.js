@@ -1,4 +1,5 @@
 import express from "express";
+import fs from "fs";
 import connectDB from "../mysql/db.js";
 import auth from "../middleware/auth.js";
 import multer from "multer";
@@ -36,20 +37,31 @@ const upload = multer({ storage });
 router.post("/apply", auth, upload.single("resume"), async (req, res) => {
   try {
     const { jobId } = req.body;
-    const resumeFile = req.file ? req.file.filename : null;
 
     if (!jobId) {
       return res.status(400).json({ message: "Job ID is required" });
     }
 
+    if (!req.file) {
+      return res.status(400).json({ message: "Resume file is required" });
+    }
+
+    // Read file as binary
+    const resumePath = path.join("uploads", req.file.filename);
+    const resumeBuffer = fs.readFileSync(resumePath);
+
+    // Save into database
     const sql = `
       INSERT INTO userJobs (user_id, job_id, resume)
       VALUES (?, ?, ?)
     `;
-    const params = [req.user.user_id, jobId, resumeFile];
-
+    const params = [req.user.user_id, jobId, resumeBuffer];
     await db.execute(sql, params);
-    return res.status(201).json({ message: "Applied successfully!" });
+
+    // Delete uploaded file (since now in DB)
+    fs.unlinkSync(resumePath);
+
+    res.status(201).json({ message: "Applied successfully!" });
   } catch (err) {
     console.error("APPLY ERROR:", err);
     res.status(500).json({ message: "Internal server error" });

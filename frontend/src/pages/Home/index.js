@@ -390,10 +390,10 @@ export default function Home() {
               </div>
 
               <div className="project-actions">
-                <a href="#" className="btn btn-outline">
+                <a href="" className="btn btn-outline">
                   Case Study
                 </a>
-                <a href="#" className="btn btn-primary">
+                <a href="" className="btn btn-primary">
                   Live
                 </a>
               </div>

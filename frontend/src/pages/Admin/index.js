@@ -3,7 +3,8 @@ import { jobPost, blogPost } from "../../api";
 import GlassMessage from "../../components/GlassMessage";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
+import { CgProfile } from "react-icons/cg";;
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("job");
@@ -189,6 +190,29 @@ const fetchApplications = async () => {
     setLoading(false);
   }
 };
+
+
+
+useEffect(() => {
+  if (activeTab === "applications") {
+    const fetchApplications = async () => {
+      try {
+        const token = Cookies.get("jwt_token");
+        const res = await fetch("http://localhost:5000/admin/applications", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+        if (res.ok) setApplications(data);
+      } catch (err) {
+        console.error("Error fetching applications:", err);
+      }
+    };
+    fetchApplications();
+  }
+}, [activeTab]);
+
 
 
 
@@ -459,30 +483,28 @@ const fetchApplications = async () => {
           <tr>
             <th>Candidate</th>
             <th>Email</th>
-            <th>Mobile</th>
             <th>Job Title</th>
+            <th>Applied On</th>
             <th>Resume</th>
-            <th>Applied At</th>
           </tr>
         </thead>
         <tbody>
           {applications.map((app) => (
             <tr key={app.application_id}>
-              <td>{app.username}</td>
-              <td>{app.email}</td>
-              <td>{app.mobile}</td>
+              <td>{app.candidate_name}</td>
+              <td>{app.candidate_email}</td>
               <td>{app.job_title}</td>
+              <td>{new Date(app.applied_at).toLocaleDateString()}</td>
               <td>
                 <a
-                  href={`http://localhost:5000/uploads/${app.resume}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="view-resume"
-                >
-                  View Resume
-                </a>
+  href={`http://localhost:5000/admin/applications/resume/${app.application_id}?token=${Cookies.get("jwt_token")}`}
+  target="_blank"
+  rel="noreferrer"
+  className="view-resume-btn"
+>
+  View Resume
+</a>
               </td>
-              <td>{new Date(app.applied_at).toLocaleString()}</td>
             </tr>
           ))}
         </tbody>

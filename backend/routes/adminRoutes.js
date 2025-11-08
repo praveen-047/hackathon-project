@@ -113,10 +113,10 @@ router.post("/blogpost", auth, async (req, res) => {
 
 
 
+// ✅ Get all applications
 router.get("/applications", auth, async (req, res) => {
   try {
-    // Ensure only admins can access
-    if (req.user.role !== "admin") {
+    if (req.user?.role !== "admin") {
       return res.status(403).json({ message: "Access denied" });
     }
 
@@ -124,25 +124,55 @@ router.get("/applications", auth, async (req, res) => {
       SELECT 
         uj.id AS application_id,
         uj.applied_at,
-        uj.resume,
-        u.username,
-        u.email,
-        u.mobile,
-        j.title AS job_title,
-        j.company
+        u.username AS candidate_name,
+        u.email AS candidate_email,
+        j.title AS job_title
       FROM userJobs uj
       JOIN user u ON uj.user_id = u.user_id
       JOIN jobs j ON uj.job_id = j.id
       ORDER BY uj.applied_at DESC
     `;
 
-    const [applications] = await db.execute(sql);
-    res.status(200).json(applications);
+    const [rows] = await db.execute(sql);
+    res.status(200).json(rows);
   } catch (err) {
-    console.error("APPLICATIONS FETCH ERROR:", err);
+    console.error("FETCH APPLICATIONS ERROR:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
+
+
+router.get("/applications/resume/:id", async (req, res) => {
+  try {
+    const authHeader = req.headers["authorization"] || req.query.token;
+    if (!authHeader) return res.status(401).json({ error: "No token provided" });
+
+    const token = authHeader.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : authHeader;
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (decoded.role !== "admin") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const { id } = req.params;
+    const [rows] = await db.execute("SELECT resume FROM userJobs WHERE id = ?", [id]);
+    if (!rows.length) return res.status(404).json({ message: "Resume not found" });
+
+    const resumeBuffer = rows[0].resume;
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "inline; filename=resume.pdf");
+    res.send(resumeBuffer);
+  } catch (err) {
+    console.error("RESUME FETCH ERROR:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 
 
 export default router;

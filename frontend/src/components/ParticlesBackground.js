@@ -7,7 +7,7 @@ const ParticlesBackground = () => {
     window.particlesJS("particles-js", {
       particles: {
         number: {
-          value: 38,
+          value: 45,
           density: { enable: true, value_area: 400.85 },
         },
         color: { value: "#969696" },
@@ -16,7 +16,7 @@ const ParticlesBackground = () => {
           stroke: { width: 0, color: "#000000" },
           polygon: { nb_sides: 5 },
         },
-        opacity: { value: 0.5 },
+        opacity: { value: 0.4 },
         size: {
           value: 4,
           random: true,

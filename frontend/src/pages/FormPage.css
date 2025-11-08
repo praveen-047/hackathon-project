@@ -1,0 +1,207 @@
+/* src/pages/FormPage.css */
+
+/* Container grid layout */
+.fp-page {
+  display: grid;
+  gap: 20px;
+  min-height: 100vh;
+  background: black;
+  color: #fff;
+}
+
+/* Hidden print copy */
+.fp-hidden-print {
+  position: absolute;
+  top: -99999px;
+  left: -99999px;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Left sidebar */
+.fp-sidebar {
+  background: #0f172a;
+  padding-top: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fp-sidebarTopIcon {
+  font-size: 28px;
+  margin-bottom: 22px;
+}
+
+/* Steps */
+.fp-stepsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.fp-stepWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fp-stepCircle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+}
+.fp-stepLine {
+  width: 2px;
+  height: 36px;
+  background: #475569;
+  margin-top: 6px;
+}
+
+/* Main form column */
+.fp-formSection {
+  padding: 32px;
+  overflow-y: auto;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.fp-bigTitle { font-size: 26px; font-weight: 800; margin: 0; }
+.fp-subtitle { color: #9ca3af; margin-bottom: 18px; }
+
+/* Form grid & fields */
+.fp-formGrid { display: flex; flex-direction: column; gap: 12px; max-width: 760px; }
+
+.fp-field { display: flex; flex-direction: column; margin-bottom: 8px; }
+.fp-fieldLabel { color: #cbd5e1; margin-bottom: 6px; font-weight: 600; }
+
+.fp-input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0b1220;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+.fp-textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #0b1220;
+  color: #fff;
+  min-height: 140px;
+  resize: vertical;
+  font-size: 15px;
+}
+
+/* Buttons */
+.fp-navBtn {
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.fp-primaryBtn {
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #22c55e;
+  color: #000;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.fp-addBtn {
+  background: #3b82f6;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.fp-removeBtn {
+  background: #ef4444;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Cards */
+.fp-sectionTitle { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+
+.fp-eduCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* small rows */
+.fp-skillRow { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+
+/* preview column */
+.fp-previewSection {
+  padding: 24px;
+  border-left: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.fp-previewHeader { display: flex; justify-content: space-between; align-items: center; }
+
+.fp-previewGlass {
+  position: relative;
+  flex: 1;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* resume element absolute (A4) - scaled & positioned inline */
+.fp-previewPaper {
+  position: absolute;
+  transform-origin: top left;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.45);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  color: #000;
+}
+
+/* small decorator elements */
+.fp-divider { border-color: #334155; margin: 20px 0; }
+
+/* responsive tweaks */
+@media (max-width: 1100px) {
+  .fp-page { grid-template-columns: 70px 1fr 420px; }
+  .fp-previewPaper { width: 680px; height: 880px; }
+}
